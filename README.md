@@ -1,62 +1,79 @@
-#  Bank Marketing Campaign Analysis
 
-This project analyzes a bank marketing campaign dataset to explore factors that influence client subscription to term deposits. The analysis is performed using R and R Markdown.
+This project analyzes a bank's marketing campaign data to identify factors influencing term deposit subscriptions.
 
----
-
-#Project Structure
+## 📂 Project Structure
 
 ```
-.
-├── data/                  # Contains the dataset
-│   └── bank-full.csv
-├── report/                # Contains R Markdown and HTML report
-│   ├── finalproject2.Rmd  # Main R Markdown file
-│   └── finalproject2.html # Compiled HTML report
-├── Makefile               # Builds the final HTML report 
-└── README.md              # Project documentation
+bank-marketing-final/
+├── data/                   # Raw data files (immutable)
+│   └── bank-full.csv      # Original dataset from UCI ML Repository
+├── code/                   # Analysis scripts (ordered)
+│   ├── 00_clean_data.R    # Data cleaning and preprocessing
+│   ├── 01_make_table1.R   # Subscription rate analysis by demographics
+│   ├── 02_make_scatter.R  # Visualization generation
+│   └── 04_render_report.R # Final report compilation
+├── output/                 # Generated outputs
+│   ├── data_clean.rds     # Processed dataset
+│   ├── table_one.rds      # Statistical tables
+│   └── histogram.png      # Key visualizations
+├── report/                 # Reporting materials
+│   └── finalproject2.Rmd  # Dynamic report with findings
+└── Makefile               # Automation script
 ```
 
----
+## 🚀 Getting Started
 
-# Report Overview
+### Prerequisites
+- R (≥ 4.0.0)
+- RStudio (recommended)
+- Required R packages:
+  ```r
+  install.packages(c("here", "dplyr", "ggplot2", "gtsummary", 
+                   "rmarkdown", "knitr", "kableExtra"))
+  ```
 
-The R Markdown report (`finalproject2.Rmd`) includes:
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/bank-marketing-analysis.git
+   cd bank-marketing-analysis
+   ```
 
-- **Introduction**: Overview of the dataset and analysis objectives
-- **Table**: Summarizes term deposit subscription rates by job type
-- **Figure**: Visualizes the age distribution by subscription status
-- **Interpretation**: Provides insights on how age and occupation relate to subscription decisions
+2. Place the raw data file (`bank-full.csv`) in the `data/` directory
 
----
+## 🔧 Usage
 
-#️ How to Generate the Final Report
-
-##Use Makefile 
-
-If a `Makefile` is included, run this command from the terminal:
-
+### Running Analysis
+Execute scripts sequentially:
 ```bash
-make
+Rscript code/00_clean_data.R
+Rscript code/01_make_table1.R
+Rscript code/02_make_scatter.R
+Rscript code/04_render_report.R
 ```
 
-This will automatically build `report/finalproject2.html`.
+Or use the Makefile:
+```bash
+make all        # Run complete analysis
+make clean      # Remove all generated files
+```
 
----
+### Key Outputs
+- Cleaned dataset: `output/data_clean.rds`
+- Summary tables: `output/table_one.rds`
+- Visualizations: `output/histogram.png`
+- Final report: `report/finalproject2.html`
 
-#Code Highlights
+## 📊 Analysis Highlights
 
-- The code for **Table 1** (term deposit by job) is inside `report/finalproject2.Rmd`, section labeled `tables`.
-- The code for the **Figure** (age distribution by subscription status) is also inside `report/finalproject2.Rmd`, section labeled `figure`.
+1. **Subscription Rates by Occupation**:
+   - Highest subscription rates among students and retirees
+   - Lowest rates among blue-collar workers
 
----
+2. **Age Distribution**:
+   - Bimodal distribution of subscribers (25-35 and 55-65 age groups)
 
-# Data
+3. **Key Findings**:
+   - Younger professionals and pre-retirees most likely to subscribe
+   - Significant regional variations in subscription rates
 
-The dataset used is `bank-full.csv`, located in the `data/` folder. If you're unable to access the original data due to privacy or size constraints, you can generate a simulated version with the same structure.
-
----
-
-#uthor
-
-Feiran Zhang 
