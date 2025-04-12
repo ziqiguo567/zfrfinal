@@ -29,3 +29,7 @@ clean:
 # Shortcut to build everything
 .PHONY: all
 all: report/finalproject2.html
+
+.PHONY: install
+install:
+    Rscript -e "renv::restore()"

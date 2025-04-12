@@ -26,12 +26,29 @@ bank-marketing-final/
 ### Prerequisites
 - R (≥ 4.0.0)
 - RStudio (recommended)
-- Required R packages:
-  ```r
-  install.packages(c("here", "dplyr", "ggplot2", "gtsummary", 
-                   "rmarkdown", "knitr", "kableExtra"))
-  ```
 
+This project uses the [`renv`](https://rstudio.github.io/renv/) package to manage dependencies and ensure reproducibility.
+
+You do **not** need to manually install packages. Instead, restore the environment using:
+
+```r
+install.packages("renv")  # Only if not already installed
+renv::restore()
+  ```
+Alternatively, use the Makefile:
+```
+make install  # Runs renv::restore() automatically  
+```
+
+### Environment Configuration
+
+#### First-Time Setup
+1. **Using make (recommended)**:
+   ```bash
+   make install  # Automatically runs renv::restore()
+   renv::restore()
+   renv::status()  # Should show "All packages are recorded and installed"
+   ```
 ### Installation
 1. Clone the repository:
    ```bash
