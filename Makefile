@@ -32,4 +32,4 @@ all: report/finalproject2.html
 
 .PHONY: install
 install:
-    Rscript -e "renv::restore()"
+	Rscript -e "renv::restore()"
