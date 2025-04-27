@@ -22,15 +22,11 @@ output/table_one.rds output/histogram.png: \
                      output/data_clean.rds
 	Rscript code/01_make_table1.R && \
 	Rscript code/02_make_scatter.R
-
-# Build docker image
-image: $(PROJECTFILES) $(RENVFILES)
-	docker build -t feiran924/bank-marketing-report .
-	touch $@
 	
 # Run docker container to generate report
 .PHONY: report
-report: image
+report: 
+	docker build -t feiran924/bank-marketing-report .
 	docker run --rm -v "$(PWD)/report:/project/report" feiran924/bank-marketing-report
 
 # Clean all generated files

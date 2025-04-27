@@ -22,24 +22,38 @@ bank-marketing-final/
 └── Dockerfile # Container configuration
 ```
 
+
 ## 🚀 Getting Started
 
 ### Prerequisites
-- R (≥ 4.0.0)
-- RStudio (recommended)
+- Docker (for containerized execution)
+- R (≥ 4.0.0, for local development - optional)
+- RStudio (recommended for local development - optional)
 
-This project uses the [`renv`](https://rstudio.github.io/renv/) package to manage dependencies and ensure reproducibility.
+### Using Docker (Recommended Method)
 
-You do **not** need to manually install packages. Instead, restore the environment using:
+#### To generate the report using Docker:
 
-  ```r
-  install.packages("renv")  # Only if not already installed
-  renv::restore()
-  ```
-Alternatively, use the Makefile:
-  ```
-  make install  # Runs renv::restore() automatically  
-  ```
+```bash
+make report
+```
+This will:
+Build the Docker image (if not already built)
+Run the analysis in a container
+Save the final report to report/finalproject2.html
+
+The container automatically mounts your local report directory to collect the output.
+
+### Alternative Docker commands:
+#### Build the image manually
+```
+docker build -t bank-marketing-report .
+```
+
+##### Run the analysis and generate report
+```
+docker run --rm -v "$(pwd)/report:/project/report" bank-marketing-report
+```
 
 ### Environment Configuration
 
@@ -66,19 +80,12 @@ Alternatively, use the Makefile:
 1. Using Local Environment
 ### Running Analysis
   ```bash
-  make all
-  make output/data_clean.rds       # Clean data
-  make output/table_one.rds        # Generate tables
-  make output/histogram.png        # Create visualizations
-  make report/finalproject2.html   # Build final report
+  make
   make clean
   ```
 2. Using Docker Container
   ```bash
-  make image
   make report
-  docker build -t bank-marketing-report .  # Build image
-  docker run --rm -v "$(pwd)/report:/project/report" bank-marketing-report  # Run analysis
   ```
 
 ### Key Outputs
