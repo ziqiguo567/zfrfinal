@@ -5,20 +5,21 @@ This project analyzes a bank's marketing campaign data to identify factors influ
 
 ```
 bank-marketing-final/
-├── data/                   # Raw data files (immutable)
-│   └── bank-full.csv      # Original dataset from UCI ML Repository
-├── code/                   # Analysis scripts (ordered)
-│   ├── 00_clean_data.R    # Data cleaning and preprocessing
-│   ├── 01_make_table1.R   # Subscription rate analysis by demographics
-│   ├── 02_make_scatter.R  # Visualization generation
-│   └── 04_render_report.R # Final report compilation
-├── output/                 # Generated outputs
-│   ├── data_clean.rds     # Processed dataset
-│   ├── table_one.rds      # Statistical tables
-│   └── histogram.png      # Key visualizations
-├── report/                 # Reporting materials
-│   └── finalproject2.Rmd  # Dynamic report with findings
-└── Makefile               # Automation script
+├── data/ # Raw data files (immutable)
+│ └── bank-full.csv # Original dataset from UCI ML Repository
+├── code/ # Analysis scripts (ordered)
+│ ├── 00_clean_data.R # Data cleaning and preprocessing
+│ ├── 01_make_table1.R # Subscription rate analysis by demographics
+│ ├── 02_make_scatter.R # Visualization generation
+│ └── 04_render_report.R # Final report compilation
+├── output/ # Generated outputs
+│ ├── data_clean.rds # Processed dataset
+│ ├── table_one.rds # Statistical tables
+│ └── histogram.png # Key visualizations
+├── report/ # Reporting materials
+│ └── finalproject2.Rmd # Dynamic report with findings
+├── Makefile # Automation script
+└── Dockerfile # Container configuration
 ```
 
 ## 🚀 Getting Started
@@ -31,14 +32,14 @@ This project uses the [`renv`](https://rstudio.github.io/renv/) package to manag
 
 You do **not** need to manually install packages. Instead, restore the environment using:
 
-```r
-install.packages("renv")  # Only if not already installed
-renv::restore()
+  ```r
+  install.packages("renv")  # Only if not already installed
+  renv::restore()
   ```
 Alternatively, use the Makefile:
-```
-make install  # Runs renv::restore() automatically  
-```
+  ```
+  make install  # Runs renv::restore() automatically  
+  ```
 
 ### Environment Configuration
 
@@ -57,23 +58,28 @@ make install  # Runs renv::restore() automatically
    ```
 
 2. Place the raw data file (`bank-full.csv`) in the `data/` directory
-
+3. Restore R dependencies (for local analysis):
+   ```bash
+   make install
+   ```
 ## 🔧 Usage
-
+1. Using Local Environment
 ### Running Analysis
-Execute scripts sequentially:
-```bash
-Rscript code/00_clean_data.R
-Rscript code/01_make_table1.R
-Rscript code/02_make_scatter.R
-Rscript code/04_render_report.R
-```
-
-Or use the Makefile:
-```bash
-make all        # Run complete analysis
-make clean      # Remove all generated files
-```
+  ```bash
+  make all
+  make output/data_clean.rds       # Clean data
+  make output/table_one.rds        # Generate tables
+  make output/histogram.png        # Create visualizations
+  make report/finalproject2.html   # Build final report
+  make clean
+  ```
+2. Using Docker Container
+  ```bash
+  make image
+  make report
+  docker build -t bank-marketing-report .  # Build image
+  docker run --rm -v "$(pwd)/report:/project/report" bank-marketing-report  # Run analysis
+  ```
 
 ### Key Outputs
 - Cleaned dataset: `output/data_clean.rds`
