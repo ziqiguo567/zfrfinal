@@ -40,4 +40,4 @@ COPY renv/settings.json renv
 RUN Rscript -e "renv::restore(prompt=FALSE)"
 
 # entry point
-CMD make
+CMD ["make"]

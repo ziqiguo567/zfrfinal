@@ -30,31 +30,28 @@ bank-marketing-final/
 - R (≥ 4.0.0, for local development - optional)
 - RStudio (recommended for local development - optional)
 
-### Using Docker (Recommended Method)
+## 🚀 Using Docker (Recommended: Pre-built Image)
 
-#### To generate the report using Docker:
+The analysis can be run using a pre-built Docker image available on Docker Hub:
+
+- **Docker Hub repository:** [feiran924/bank-marketing-final](https://hub.docker.com/repository/docker/feiran924/bank-marketing-final/general)
+
+To generate the report:
 
 ```bash
 make report
 ```
+
 This will:
-Build the Docker image (if not already built)
-Run the analysis in a container
+Pull and run the pre-built image feiran924/bank-marketing-final:latest from Docker Hub
+Execute the analysis workflow
 Save the final report to report/finalproject2.html
-
 The container automatically mounts your local report directory to collect the output.
-
-### Alternative Docker commands:
-#### Build the image manually
-```
-docker build -t bank-marketing-report .
-```
 
 ##### Run the analysis and generate report
 ```
-docker run --rm -v "$(pwd)/report:/project/report" bank-marketing-report
+docker run --rm -v "$(pwd):/home/rstudio/project" feiran924/bank-marketing-final:latest make all
 ```
-
 ### Environment Configuration
 
 #### First-Time Setup
